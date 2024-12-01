@@ -8,7 +8,7 @@ With [Packer](https://github.com/wbthomason/packer.nvim):
 add 
 ```lua
 require('packer').startup(function()
-  use 'Pekikii/apm.nvim'
+  use 'pekikii/apm.nvim'
 end)
 ```
 to your `init.lua`
