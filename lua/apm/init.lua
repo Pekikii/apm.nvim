@@ -1,6 +1,7 @@
 local M = {}
 
 local key_press_times = {}
+local apm_values = {}
 
 function M.calculate_apm()
     if not key_press_times then
@@ -11,7 +12,7 @@ function M.calculate_apm()
     local filtered_times = {}
 
     for _, timestamp in ipairs(key_press_times) do
-        if timestamp >= current_time - 5 * 1e9 then
+        if timestamp >= current_time - 1 * 1e9 then
             table.insert(filtered_times, timestamp)
         end
     end
@@ -22,8 +23,28 @@ function M.calculate_apm()
         return 0
     end
 
-    local apm = #key_press_times * 12
-    return string.format("%d", apm)
+    local apm = #key_press_times * 60
+
+    table.insert(apm_values, apm)
+    if #apm_values > 10 then
+        table.remove(apm_values, 1)
+    end
+
+    return apm
+end
+
+function M.calculate_rolling_average()
+    if #apm_values == 0 then
+        return 0
+    end
+
+    local sum = 0
+    for _, value in ipairs(apm_values) do
+        sum = sum + value
+    end
+
+    local average = math.floor(sum / #apm_values)
+    return string.format("%d", average)
 end
 
 function M.on_key_press()
@@ -42,7 +63,7 @@ end
 
 function M.setup_statusline()
     local current_statusline = vim.o.statusline
-    vim.o.statusline = current_statusline .. " APM:%{v:lua.require'apm'.calculate_apm()} "
+    vim.o.statusline = current_statusline .. " APM:%{v:lua.require'apm'.calculate_rolling_average()} "
 end
 
 function M.setup()
