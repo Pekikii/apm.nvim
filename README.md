@@ -8,6 +8,6 @@ With [Packer](https://github.com/wbthomason/packer.nvim):
 
 ```lua
 use 'Pekikii/apm.nvim' 
+```
 
 and call `:PackerInstall`
-# apm.nvim
