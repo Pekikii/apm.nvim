@@ -5,9 +5,12 @@ This is a Neovim plugin that tracks your keypresses and displays your APM (actio
 ## Installation
 
 With [Packer](https://github.com/wbthomason/packer.nvim):
-
+add 
 ```lua
-use 'Pekikii/apm.nvim' 
+require('packer').startup(function()
+  use 'Pekikii/apm.nvim'
+end)
 ```
+to your `init.lua`
 
 and call `:PackerInstall`
