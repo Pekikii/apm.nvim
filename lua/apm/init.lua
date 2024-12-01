@@ -32,7 +32,7 @@ function M.on_key_press()
 end
 
 function M.start_apm_timer()
-    vim.loop.new_timer():start(0, 1000, function()
+    vim.loop.new_timer():start(0, 100, function()
         M.calculate_apm()
         vim.schedule(function()
             vim.cmd("redrawstatus")

@@ -10,6 +10,7 @@ add
 require('packer').startup(function()
   use 'pekikii/apm.nvim'
 end)
+require('apm').setup()
 ```
 to your `init.lua`
 
