@@ -4,6 +4,9 @@ local key_press_times = {}
 local apm_values = {}
 
 function M.calculate_apm()
+    if #apm_values > 10 then
+        table.remove(apm_values, 1)
+    end
     if not key_press_times then
         return 0
     end
@@ -20,15 +23,13 @@ function M.calculate_apm()
     key_press_times = filtered_times
 
     if #key_press_times == 0 then
+        table.remove(apm_values, 1)
         return 0
     end
 
     local apm = #key_press_times * 60
 
     table.insert(apm_values, apm)
-    if #apm_values > 10 then
-        table.remove(apm_values, 1)
-    end
 
     return apm
 end
