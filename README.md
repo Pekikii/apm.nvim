@@ -15,3 +15,28 @@ require('apm').setup()
 to your `init.lua`
 
 and call `:PackerInstall`
+
+With [Lazy](https://github.com/folke/lazy.nvim):
+
+```lua
+--- Lazy
+{
+    'pekikii/apm.nvim',
+    config = function()
+      require('apm').setup()
+    end,
+}
+```
+
+## Integration with statusline plugins like lualine
+
+```lua
+--- Inside lualine config
+    local apm = require('apm').get_apm_status
+    require('lualine').setup {
+    sections = {
+      lualine_y = { apm }
+    }
+}
+
+```

@@ -48,7 +48,11 @@ function M.calculate_rolling_average()
     return string.format("%d", average)
 end
 
-function M.on_key_press()
+function M.on_key_press(key)
+    -- Ignore non-keyboard mouse inputs like mouse clicks and scrolls
+    if key:match("\x80\xfd") then
+        return
+    end
     local current_time = vim.loop.hrtime()
     table.insert(key_press_times, current_time)
 end
@@ -65,6 +69,10 @@ end
 function M.setup_statusline()
     local current_statusline = vim.o.statusline
     vim.o.statusline = current_statusline .. " APM:%{v:lua.require'apm'.calculate_rolling_average()} "
+end
+
+function M.get_apm_status()
+    return "APM: " .. M.calculate_rolling_average()
 end
 
 function M.setup()
